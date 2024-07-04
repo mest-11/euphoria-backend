@@ -14,9 +14,6 @@ app.use(cors());
 
 expressOasGenerator.handleResponses(app, {
     alwaysServeDocs: true,
-    swaggerUIPath: "/api-docs",
-    swaggerSpecFilePath: "./api-docs/swagger.json",
-    swaggerFilePath: "./api-docs/swagger.yaml",
     tags: ["events", "notifications"], 
     mongooseModels: mongoose.modelNames()
 });
@@ -45,6 +42,9 @@ app.patch("/login", (req, res) => {
 app.use(ticketRouter);
 app.use(notificationRouter);
 app.use(eventRouter);
+
+expressOasGenerator.handleRequests();
+app.use((req, res) => res.redirect("/api-docs/"));
 
 
 const port = process.env.PORT || 8080;

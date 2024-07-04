@@ -6,7 +6,7 @@ const eventRouter = Router();
 
 eventRouter.get("/events", getEvents);
 eventRouter.get("/events/:id", getOneEvent);
-eventRouter.post("/events", remoteUpload.single("image"), addEvent);
+eventRouter.post("/events", remoteUpload.single("flier"), addEvent);
 eventRouter.patch("/events/:id", updateEvent);
 eventRouter.delete("/events/:id", deleteEvent);
 

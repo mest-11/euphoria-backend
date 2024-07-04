@@ -26,15 +26,9 @@ export const getOneEvent = async (req, res, next) => {
 // POST create a new event
 export const addEvent = async (req, res, next) => {
     try {
-        const { eventName, date, location, flier } = req.body;
-        if (!eventName || !date || !location || !flier) {
-            return res.status(400).json({ message: "All fields required" });
-        }
         const newEvent = await EventModel.create({
-            eventName,
-            date,
-            location,
-            flier
+            ...req.body,
+            file: req.file.filename
         });
         res.status(201).json(newEvent);
     } catch (error) {

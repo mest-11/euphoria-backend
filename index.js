@@ -5,10 +5,13 @@ import ticketRouter from "./ticketingSystem/routers/ticketRouter.js";
 import notificationRouter from "./ticketingSystem/routers/notificationRouter.js";
 import eventRouter from "./userManagement/routers/eventRouter.js";
 import expressOasGenerator from "express-oas-generator";
+import cors from "cors";
 
 await mongoose.connect(process.env.MONGO_URL);
 
 const app = express();
+app.use(cors());
+
 expressOasGenerator.handleResponses(app, {
     alwaysServeDocs: true,
     swaggerUIPath: "/api-docs",
@@ -20,6 +23,7 @@ expressOasGenerator.handleResponses(app, {
 
 // apply middlewares
 app.use(express.json());
+app.use(express.static("euphoria"));
 
 app.get("/", (req, res) => {
     res.json("Welcome Home");

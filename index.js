@@ -9,35 +9,35 @@ import expressOasGenerator from "express-oas-generator";
 await mongoose.connect(process.env.MONGO_URL);
 
 const app = express();
-// expressOasGenerator.handleResponses(app, {
-//     alwaysServeDocs: true,
-//     tags: ["events", "notifications"],
-//     mongooseModels: mongoose.modelNames()
-// });
-
-/////////////
-
 expressOasGenerator.handleResponses(app, {
     alwaysServeDocs: true,
     swaggerUIPath: "/api-docs",
-    swaggerSpecFilePath: "/api-docs/swagger.json",
-    swaggerFilePath: "/api-docs/swagger.yaml",
-    tags: ["events", "notifications"],
+    swaggerSpecFilePath: "./api-docs/swagger.json",
+    swaggerFilePath: "./api-docs/swagger.yaml",
+    tags: ["events", "notifications"], 
     mongooseModels: mongoose.modelNames()
 });
 
-expressOasGenerator.handleRequests();
-
-// Routes
-app.use("/api/events", eventRouter);
-
-/////////
-
+// apply middlewares
 app.use(express.json());
 
-// expressOasGenerator.handleRequests();
-// app.use((req, res) => res.redirect("/api-docs/"));
+app.get("/", (req, res) => {
+    res.json("Welcome Home");
+});
 
+app.post("/login", (req, res) => {
+    res.json("login Successful1;")
+});
+
+app.delete("/login", (req, res) => {
+    res.json("Deleted File");
+});
+
+app.patch("/login", (req, res) => {
+    res.json("File Updated");
+});
+
+// use routes
 app.use(ticketRouter);
 app.use(notificationRouter);
 app.use(eventRouter);

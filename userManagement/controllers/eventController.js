@@ -28,7 +28,7 @@ export const addEvent = async (req, res, next) => {
     try {
         const newEvent = await EventModel.create({
             ...req.body,
-            file: req.file.filename
+            flier: req.file.filename
         });
         res.status(201).json(newEvent);
     } catch (error) {
